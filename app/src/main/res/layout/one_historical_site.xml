@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
-    tools:cardCornerRadius="@dimen/cardview_default_radius">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +45,7 @@
                 android:orientation="horizontal">
 
                 <RatingBar
+                    android:id="@+id/ratingbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:isIndicator="true"
@@ -52,6 +54,7 @@
                     android:rating="4.5" />
 
                 <TextView
+                    android:id="@+id/rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -76,19 +79,19 @@
                 android:layout_width="250dp"
                 android:layout_height="40dp"
                 android:layout_weight="3"
-                android:background="@drawable/border"
-                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:gravity="left"
                 android:text="Location Name"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textColor="@color/black" />
 
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-
+                android:id="@+id/location"
                 android:layout_weight="1"
-                android:background="@drawable/border"
+                android:background="@color/white"
                 android:src="@drawable/ic_location_on_black_24dp" />
         </LinearLayout>
 
@@ -96,35 +99,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:background="@drawable/border"
+
             android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
 
+            <com.like.LikeButton
+                app:icon_type="heart"
+                app:icon_size="30dp"
+                app:like_drawable="@drawable/ic_favorite_black_24dp"
+                app:unlike_drawable="@drawable/ic_favorite_border_black_24dp"
+                android:id="@+id/like_button"
+                app:dots_primary_color="@color/colorAccent"
+                app:dots_secondary_color="@color/colorPrimary"
+                app:circle_end_color="@color/colorAccent"
+                app:liked="false"
+                app:anim_scale_factor="2"
+                app:circle_start_color="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"/>
+                <TextView
+                    android:id="@+id/nolike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 Like"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                >
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/border"
-                android:src="@drawable/ic_favorite_border_black_24dp" />
-
-            <TextView
+                android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/border"
+                android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:text="Review"
-                android:textSize="18dp"
+
+                android:src="@drawable/ic_comment_black_24dp"
                 android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/nocomment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 Comment"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"/>
+            </LinearLayout>
             <TextView
+                android:id="@+id/overview"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_weight="1"
                 android:gravity="center"
+                android:layout_marginLeft="10dp"
                 android:text="OverView"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="14dp"
+                android:textColor="@color/black" />
         </LinearLayout>
 
 

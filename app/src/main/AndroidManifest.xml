@@ -26,20 +26,15 @@
         <activity android:name=".PasswordResetActivity" />
         <activity
             android:name=".UserMainDashboard"
-            android:label="@string/title_activity_user_main_dashboard"
+            android:label="Historical Site Guide"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".HistoricalSitesOnMapView"
-            android:label="@string/title_activity_historical_sites_on_map_view" />
-        <activity
-            android:name=".OneHistoricalSiteOnMapView"
-            android:label="@string/title_activity_one_historical_site_on_map_view" />
-        <activity android:name=".HistoricalSiteSearchByName" />
+
+
         <activity android:name=".ShowHistoricalSiteForDistrict">
 
         </activity>

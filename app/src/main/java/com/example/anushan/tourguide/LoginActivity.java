@@ -25,11 +25,12 @@ public class LoginActivity extends AppCompatActivity {
     private Button Login,Register;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAuth=FirebaseAuth.getInstance();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser = firebaseAuth.getCurrentUser();
         if (currentUser!=null){
             Intent intent =new Intent(LoginActivity.this, UserMainDashboard.class);
             startActivity(intent);
@@ -121,4 +122,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        finish();
+        
+    }
 }
