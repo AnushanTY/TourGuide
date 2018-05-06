@@ -21,6 +21,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
+
+import static com.example.anushan.tourguide.R.drawable.ic_favorite_black_24dp;
 
 /**
  * Created by Anushan on 3/8/2018.
@@ -79,7 +82,7 @@ public class Historical_site_whole_View extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull HistoricalSiteHolder holder, int position, @NonNull final Historical_Site model) {
+            protected void onBindViewHolder(@NonNull final HistoricalSiteHolder holder, int position, @NonNull final Historical_Site model) {
 
                 if(progressDialog.isShowing()){
                     progressDialog.dismiss();
@@ -87,18 +90,66 @@ public class Historical_site_whole_View extends Fragment {
                 }
 
                 int noLikes= findlike(model.getName());
-                Log.w("ppppppp", String.valueOf((noLikes)));
                 holder.NoLike.setText(String.valueOf(noLikes));
                 Picasso.with(getContext()).load(model.getImageUrl()).fit().into(holder.imageView);
                 holder.name.setText(model.getName());
                 holder.locationName.setText(model.getDistrict());
+
+                DatabaseReference databaseReference4=FirebaseDatabase.getInstance().getReference();
+                databaseReference4.getRoot().child("Historical_site_like").child(model.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int count = (int) dataSnapshot.getChildrenCount();
+                        holder.NoLike.setText(String.valueOf(count)+" "+"Likes");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                DatabaseReference databaseReference5=FirebaseDatabase.getInstance().getReference();
+                databaseReference5.child("Historical_site_like").child(model.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snap: dataSnapshot.getChildren()) {
+                            if(snap.child("Email").getValue().equals(firebaseUser.getEmail())){
+                               // Log.w("kkkkkk", String.valueOf(snap.child("Email")));
+                                holder.likeButton.setUnlikeDrawableRes(R.drawable.ic_favorite_black_24dp);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
                 holder.likeButton.setOnLikeListener(new OnLikeListener() {
                     @Override
                     public void liked(LikeButton likeButton) {
                         likeButton.setUnlikeDrawableRes(R.drawable.ic_favorite_black_24dp);
                         DatabaseReference databaseReference1=FirebaseDatabase.getInstance().getReference();
-                        databaseReference1.child("Historical_site_like").child(model.getName()).child("UserID")
-                                .setValue(firebaseUser.getUid());
+                        databaseReference1.child("Historical_site_like").child(model.getName()).child(firebaseUser.getUid())
+                                .child("Email").setValue(firebaseUser.getEmail());
+
+                        DatabaseReference databaseReference4=FirebaseDatabase.getInstance().getReference();
+                        databaseReference4.getRoot().child("Historical_site_like").child(model.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int count = (int) dataSnapshot.getChildrenCount();
+                                holder.NoLike.setText(String.valueOf(count)+" "+"Likes");
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
                     }
 
@@ -106,8 +157,22 @@ public class Historical_site_whole_View extends Fragment {
                     public void unLiked(LikeButton likeButton) {
                         likeButton.setUnlikeDrawableRes(R.drawable.ic_favorite_border_black_24dp);
                         DatabaseReference databaseReference2=FirebaseDatabase.getInstance().getReference();
-                        databaseReference2.child("Historical_site_like").child(model.getName()).child("UserID")
-                                .removeValue();
+                        databaseReference2.child("Historical_site_like").child(model.getName()).child(firebaseUser.getUid())
+                                .child("Email").removeValue();
+
+                        DatabaseReference databaseReference4=FirebaseDatabase.getInstance().getReference();
+                        databaseReference4.getRoot().child("Historical_site_like").child(model.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                int count = (int) dataSnapshot.getChildrenCount();
+                                holder.NoLike.setText(String.valueOf(count)+" "+"Likes");
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
                     }
                 });
@@ -130,6 +195,22 @@ public class Historical_site_whole_View extends Fragment {
 
                 holder.rate.setText(String.valueOf(model.getRate()));
                 holder.ratingBar.setRating((float) model.getRate());
+
+                DatabaseReference databaseReference3=FirebaseDatabase.getInstance().getReference();
+                databaseReference3.getRoot().child("Review").child(model.getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int count = (int) dataSnapshot.getChildrenCount();
+                        holder.NoComment.setText(String.valueOf(count)+" "+"Comments");
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 holder.comment.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,13 +42,12 @@ public class UserMainDashboard extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_user_main_dashboard);
 
         fragment= new Historical_site_whole_View();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame, fragment).addToBackStack(null);
         ft.commit();
-        setContentView(R.layout.activity_user_main_dashboard);
 
 
 
@@ -139,6 +139,10 @@ public class UserMainDashboard extends AppCompatActivity
 
         } else if (id == R.id.nav_search_by_location) {
             fragment=new HistoricalSitesByLocation();
+        } else if (id == R.id.nav_currentlocation) {
+            fragment=new CurrentLocationDetail();
+
+
 
         } else if (id == R.id.nav_search_by_name) {
             fragment=new HistoricalSiteSearchByName();

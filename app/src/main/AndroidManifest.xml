@@ -3,7 +3,11 @@
     package="com.example.anushan.tourguide">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+
+
 
     <application
         android:allowBackup="true"
@@ -33,11 +37,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-
-
-        <activity android:name=".ShowHistoricalSiteForDistrict">
-
-        </activity>
+        <activity android:name=".ShowHistoricalSiteForDistrict"></activity>
+        <activity android:name=".CurrentLocationDetail"></activity>
     </application>
 
 </manifest>

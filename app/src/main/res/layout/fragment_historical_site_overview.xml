@@ -58,7 +58,7 @@
             <Button
                 android:id="@+id/overviewbtn"
                 android:gravity="center"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,9 +67,19 @@
 
                 android:textSize="15dp"
                 android:text="GIVE YOUR RATING "/>
-        </LinearLayout>
-    </LinearLayout>
+            <Button
+                android:id="@+id/startAR"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@color/his"
 
+                android:textSize="15dp"
+                android:text="START Augmented Reality "/>
+        </LinearLayout>
         <TextView
             android:id="@+id/information"
             android:layout_width="match_parent"
@@ -81,5 +91,53 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Take your photo with historical site and upload.............."
+                android:textColor="@color/his"
+                android:textSize="18dp"
+                android:gravity="center"/>
+            <ImageView
+                android:id="@+id/galery"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+
+                android:src="@drawable/ic_menu_camera"/>
+
+            <Button
+                android:layout_marginTop="10dp"
+                android:id="@+id/gallerySubmit"
+                android:layout_width="300dp"
+                android:text="Submit"
+                android:background="@color/normalcolor"
+                android:textColor="@color/white"
+                android:layout_height="50dp"
+                android:layout_gravity="center"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:id="@+id/userHisPhoto"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
 
 </ScrollView>

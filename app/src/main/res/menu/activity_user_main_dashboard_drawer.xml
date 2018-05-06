@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_location_searching_black_24dp"
             android:title="Hostorical site Map view" />
         <item
+            android:id="@+id/nav_currentlocation"
+            android:icon="@drawable/ic_location_on_black_24dp_new"
+            android:title="Current location detail" />
+        <item
             android:id="@+id/nav_search_by_location"
             android:icon="@drawable/ic_my_location_black_24dp"
             android:title="Search By Location" />
