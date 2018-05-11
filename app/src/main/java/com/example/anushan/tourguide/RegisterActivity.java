@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Log.d("Success", "createUserWithEmail:success");
                                     FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
                                     firebaseUserID= firebaseUser.getUid();
-                                    User user= new User(Email.getText().toString(),UserName.getText().toString());
+                                    User user= new User(Email.getText().toString(),UserName.getText().toString(),0);
                                     DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference().getRoot();
                                     databaseReference.child("User").child(firebaseUserID).setValue(user, new DatabaseReference.CompletionListener() {
                                         @Override

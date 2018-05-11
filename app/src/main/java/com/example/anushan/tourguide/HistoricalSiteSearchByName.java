@@ -65,17 +65,7 @@ public class HistoricalSiteSearchByName extends Fragment {
                                 .setQuery(query, Search_By_His_Name_one_item.class)
                                 .build();
 
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.w("ttttttt", String.valueOf(dataSnapshot));
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
                 firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<Search_By_His_Name_one_item,SearchViewHolder>(options) {
                     @Override

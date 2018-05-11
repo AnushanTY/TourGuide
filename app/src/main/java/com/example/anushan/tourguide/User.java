@@ -6,10 +6,27 @@ package com.example.anushan.tourguide;
 
 public class User {
     private  String email,username;
+    private long role;
 
-    public User(String email, String username) {
+    public User() {
+    }
+
+    public User(String email, String username, long role) {
         this.email = email;
         this.username = username;
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public long getRole() {
+        return role;
     }
 
     public void setEmail(String email) {
@@ -20,11 +37,7 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUsername() {
-        return username;
+    public void setRole(long role) {
+        this.role = role;
     }
 }

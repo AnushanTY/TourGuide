@@ -18,6 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText Email,Password;
@@ -31,12 +36,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         firebaseAuth=FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser!=null){
-            Intent intent =new Intent(LoginActivity.this, UserMainDashboard.class);
-            startActivity(intent);
 
-        }
+
+
+
         setContentView(R.layout.activity_login);
+
+
         Email=(EditText)findViewById(R.id.email);
         Password=(EditText)findViewById(R.id.password);
         Forget_Password=(TextView) findViewById(R.id.forgetpassword);
@@ -94,11 +100,37 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("Success", "signInWithEmail:success");
-                                    Intent intent =new Intent(LoginActivity.this, UserMainDashboard.class);
-                                    startActivity(intent);
-                                    finish();
+                                    DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
+                                    databaseReference.child("User").child(firebaseAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            Log.w("fffff", String.valueOf(dataSnapshot));
+                                            Long rolenumber= (Long) dataSnapshot.child("role").getValue();
+                                            if(rolenumber==0){
+                                                Log.d("Success", "signInWithEmail:success");
+                                                Intent intent =new Intent(LoginActivity.this, UserMainDashboard.class);
+                                                startActivity(intent);
+                                                if (progressDialog.isShowing()) {
+                                                    progressDialog.dismiss();
+                                                }
+                                                finish();
+                                            }else {
+                                                Log.d("Success", "signInWithEmail:success");
+                                                Intent intent =new Intent(LoginActivity.this, AdminActivity.class);
+                                                startActivity(intent);
+                                                if (progressDialog.isShowing()) {
+                                                    progressDialog.dismiss();
+                                                }
+                                                finish();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+
 
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -121,6 +153,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
     @Override
     protected void onRestart() {
